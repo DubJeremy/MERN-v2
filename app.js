@@ -5,9 +5,11 @@ require('dotenv').config({path: './config/.env'});
 
 const userRoutes = require('./routes/userRoutes');
 
-mongoose.connect('mongodb+srv://' + process.env.DB_USER_PASS + '@cluster0.utafe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-  { useNewUrlParser: true,
-    useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://' + process.env.DB_USER_PASS + '@cluster0.utafe.mongodb.net/mernv2?retryWrites=true&w=majority',
+  { 
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
