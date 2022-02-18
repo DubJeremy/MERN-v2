@@ -58,3 +58,9 @@ exports.userUpdate = (req, res, next) => {
     .then(() => res.status(200).json({ message: 'Profil modifié !'}))
     .catch(error => res.status(400).json({ error }));
 };
+
+exports.userDelete = (req, res, next) => {
+  User.deleteOne({ _id: req.params.id })
+      .then(() => res.status(200).json({ message: "Profil supprimé !"}))
+      .catch(error => res.status(404).json({ error }));
+};

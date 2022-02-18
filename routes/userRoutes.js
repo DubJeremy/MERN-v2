@@ -9,7 +9,7 @@ router.post('/signin', userCtrl.signin);
 
 router.get('/:id', userCtrl.userInfo);
 router.put('/:id', userCtrl.userUpdate);
-// router.delete('/:id', auth, userCtrl.userDelete);
+router.delete('/:id', userCtrl.userDelete);
 
 
 module.exports = router;
