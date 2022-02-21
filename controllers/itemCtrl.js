@@ -1,5 +1,5 @@
 const Thing = require("../models/itemModel");
-// const fs = require('fs');
+const fs = require('fs');
 
 exports.createItem = (req, res, next) => {
     const itemObject = JSON.parse(req.body.item);
