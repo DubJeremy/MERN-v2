@@ -6,7 +6,7 @@ exports.createItem = (req, res, next) => {
     delete itemObject._id;
     const item = new item({
       ...itemObject,
-    //   imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+      imageUrl: `${req.protocol}://${req.get('host')}/src/images/${req.file.filename}`
     });
     item.save()
       .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
@@ -17,7 +17,7 @@ exports.modifyItem = (req, res, next) => {
     const itemObject = req.file ?
       {
         ...JSON.parse(req.body.item),
-        // imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        imageUrl: `${req.protocol}://${req.get('host')}/src/images/${req.file.filename}`
       } : { ...req.body };
     Item.updateOne({ _id: req.params.id }, { ...itemObject, _id: req.params.id })
       .then(() => res.status(200).json({ message: 'Objet modifié !'}))
@@ -37,13 +37,13 @@ exports.deleteiTEM = (req, res, next) => {
                     error: new Error('Requête non autorisée !')
                 })
             }
-            // const filename = item.imageUrl.split('/images/')[1];
-            // fs.unlink(`images/${filename}`, () => 
-            // {
-            //     Item.deleteOne({ _id: req.params.id })
-            //     .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
-            //     .catch(error => res.status(400).json({ error }));
-            // });
+            const filename = item.imageUrl.split('/src/images/')[1];
+            fs.unlink(`src/images/${filename}`, () => 
+            {
+                Item.deleteOne({ _id: req.params.id })
+                .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
+                .catch(error => res.status(400).json({ error }));
+            });
         })
         .catch(error => res.status(500).json({ error }));
 };

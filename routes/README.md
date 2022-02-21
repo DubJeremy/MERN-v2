@@ -1,0 +1,1 @@
+add Pictures folder to SRC folder.
