@@ -1,4 +1,4 @@
-const Thing = require("../models/itemModel");
+const Item = require("../models/itemModel");
 const fs = require('fs');
 
 exports.createItem = (req, res, next) => {
@@ -6,7 +6,7 @@ exports.createItem = (req, res, next) => {
     delete itemObject._id;
     const item = new item({
       ...itemObject,
-      imageUrl: `${req.protocol}://${req.get('host')}/src/images/${req.file.filename}`
+      imageUrl: `${req.protocol}://${req.get('host')}/front/src/assets/images/${req.file.filename}`
     });
     item.save()
       .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
@@ -17,7 +17,7 @@ exports.modifyItem = (req, res, next) => {
     const itemObject = req.file ?
       {
         ...JSON.parse(req.body.item),
-        imageUrl: `${req.protocol}://${req.get('host')}/src/images/${req.file.filename}`
+        imageUrl: `${req.protocol}://${req.get('host')}/front/src/assets/images/${req.file.filename}`
       } : { ...req.body };
     Item.updateOne({ _id: req.params.id }, { ...itemObject, _id: req.params.id })
       .then(() => res.status(200).json({ message: 'Objet modifié !'}))
@@ -25,7 +25,7 @@ exports.modifyItem = (req, res, next) => {
   };
 
 exports.deleteiTEM = (req, res, next) => {
-    iTEM.findOne({ _id: req.params.id })
+    Item.findOne({ _id: req.params.id })
         .then((item) => {
             if (!item) {
                 return res.status(404).json({
@@ -37,8 +37,8 @@ exports.deleteiTEM = (req, res, next) => {
                     error: new Error('Requête non autorisée !')
                 })
             }
-            const filename = item.imageUrl.split('/src/images/')[1];
-            fs.unlink(`src/images/${filename}`, () => 
+            const filename = item.imageUrl.split('/front/src/assets/images/')[1];
+            fs.unlink(`front/src/assets/images/${filename}`, () => 
             {
                 Item.deleteOne({ _id: req.params.id })
                 .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
