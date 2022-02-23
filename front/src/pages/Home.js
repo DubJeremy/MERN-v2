@@ -1,4 +1,5 @@
 import React from 'react';
+import Form from '../components/Form';
 import Header from '../components/Header';
 
 const Home = () => {
@@ -6,6 +7,7 @@ const Home = () => {
         <div id='home'>
             <h1>Home Page</h1>
             <Header />
+            <Form />
         </div>
     );
 };
