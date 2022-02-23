@@ -1,0 +1,22 @@
+.header {
+    ul 
+    {
+        width: 200px;
+        @include flex($just: space-around ,$dir: row );
+
+        a 
+        {
+            color: black;
+            
+            &.nav-active
+            {
+                color: rgb(133, 92, 133);
+                font-size: 1.1em;
+            }
+            &:hover 
+            {
+                color: rgb(108, 92, 133);
+            }
+        }   
+    }
+}

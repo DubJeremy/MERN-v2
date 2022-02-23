@@ -1,9 +1,11 @@
 import React from 'react';
+import Header from '../components/Header';
 
 const WishList = () => {
     return (
-        <div>
-            
+        <div id='wishlist'>
+            <h1>Liste d'envie</h1>
+            <Header />
         </div>
     );
 };

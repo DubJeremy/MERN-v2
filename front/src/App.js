@@ -1,10 +1,18 @@
 import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import Items from './pages/Items';
+import WishList from './pages/WishList';
 
 const App = () => {
   return (
-    <div>
-      <h1>Hello mern-v2</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="*" element={<Home />} />
+        <Route path='/wishlist' element={<WishList />} />
+        <Route path='/produits' element={<Items />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
