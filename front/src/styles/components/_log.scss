@@ -1,0 +1,15 @@
+.log-form
+{
+    .log-btn
+    {
+        width: 100px;
+        height: 50px;
+        @include flex;
+        border-radius: 1em;
+
+    }
+    .active-btn
+    {
+        background-color: mediumpurple;
+    }
+}

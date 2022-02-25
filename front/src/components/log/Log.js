@@ -21,8 +21,17 @@ const Log = () => {
         <div className="log-form">
             <div className="form">
                 <ul>
-                    <li onClick={handleModals} id="register">Inscription</li>
-                    <li onClick={handleModals} id="login">Connexion</li>
+                    <li onClick={handleModals} 
+                    id="register" 
+                    className={signUpModal ? "active-btn log-btn" : "log-btn"}>
+                        Inscription
+                    </li>
+                    <li 
+                    onClick={handleModals} 
+                    id="login"
+                    className={signInModal ? "active-btn log-btn" : "log-btn"}>
+                        Connexion
+                    </li>
                 </ul>
                 {signUpModal && <SignUp />}
                 {signInModal && <SignIn />}
