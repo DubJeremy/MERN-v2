@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { signUpErrors } = require('../config/errors');
+const { signUpErrors, signInErrors } = require('../config/errors');
 
 const User = require("../models/userModel");
 
@@ -49,13 +49,17 @@ exports.signin = (req, res, next) => {
   User.findOne({ email: req.body.email })
   .then(user => {
     if (!user) {
-      return res.status(401
-        ).json({ error: 'Utilisateur non trouvé !' });
+      const errorEmail = 'Email inconnu';
+      return res.status(200).json({errorEmail});
+      // return res.status(401
+      //   ).json({ error: 'Utilisateur non trouvé !' });
     }
     bcrypt.compare(req.body.password, user.password)
     .then(valid => {
       if (!valid) {
-        return res.status(401).json({ error: 'Mot de passe incorrect !' });
+        const errorPassword = 'Mot de passe est incorrect'
+        return res.status(200).json({ errorPassword });
+        // return res.status(401).json({ error: 'Mot de passe incorrect !' });
       }
       res.status(200).json({
         userId: user._id,
@@ -68,8 +72,45 @@ exports.signin = (req, res, next) => {
       })
       .catch(error => res.status(500).json({ error }));
     })
-    .catch(error => res.status(500).json({ error }));
-  };
+  .catch(error => res.status(500).json({ error }));
+};
+
+// exports.signin = (req, res, next) => {
+//   User.findOne({ email: req.body.email })
+//   .then(user => {
+//     if (!user) {
+//       ((err) => {
+
+//         const errors = signInErrors(err);
+//         res.status(200).json({ errors });
+//       });
+//       // return res.status(401
+//       //   ).json({ error: 'Utilisateur non trouvé !' });
+//     }
+//     bcrypt.compare(req.body.password, user.password)
+//     .then(valid => {
+//       if (!valid) {
+//         return res.status(401).json({ error: 'Mot de passe incorrect !' });
+//       }
+//       res.status(200).json({
+//         userId: user._id,
+//         token: jwt.sign(
+//           { userId: user._id },
+//           'RANDOM_TOKEN_SECRET',
+//           { expiresIn: '7d' }
+//           )
+//         });
+//       })
+//       .catch(err => {
+//         const errors = signInErrors(err);
+//         res.status(200).json({ errors })
+//       });
+//     })
+//   .catch(err => {
+//     const errors = signInErrors(err);
+//     res.status(200).json({ errors })
+//   }); 
+// };
 
 // User ---------------------------------------
 exports.userInfo = (req, res, next) => {

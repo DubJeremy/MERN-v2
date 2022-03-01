@@ -20,11 +20,14 @@ const SignIn = () => {
             },
         })
             .then((res) => {
-                if (res.data.errors) 
+                if (res.data.errorEmail) 
                 {
-                    emailError.innerHTML = res.data.errors.email;
-                    passwordError.innerHTML = res.data.errors.password;
+                    emailError.innerHTML = res.data.errorEmail;
                 } 
+                else if (res.data.errorPassword)
+                {
+                    passwordError.innerHTML = res.data.errorPassword;
+                }
                 else 
                 {
                     window.location='/';

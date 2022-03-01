@@ -25,6 +25,7 @@ const userSchema = mongoose.Schema(
     password: {
         type: String,
         required: true,
+        minLenght: 6
     },
     adress:
     {
