@@ -46,19 +46,21 @@ exports.register = (req, res, next) =>
 };
 
 exports.signin = (req, res, next) => {
+  let errors = {email: '', password: ''}
+
   User.findOne({ email: req.body.email })
   .then(user => {
     if (!user) {
-      const errorEmail = 'Email inconnu';
-      return res.status(200).json({errorEmail});
+      errors.email = 'Email inconnu';
+      return res.status(200).json({ errors });
       // return res.status(401
       //   ).json({ error: 'Utilisateur non trouvé !' });
     }
     bcrypt.compare(req.body.password, user.password)
     .then(valid => {
       if (!valid) {
-        const errorPassword = 'Mot de passe est incorrect'
-        return res.status(200).json({ errorPassword });
+        errors.password = 'Mot de passe est incorrect'
+        return res.status(200).json({ errors });
         // return res.status(401).json({ error: 'Mot de passe incorrect !' });
       }
       res.status(200).json({
